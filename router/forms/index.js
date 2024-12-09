@@ -23,11 +23,11 @@ app.post("/create", (req, res) => {
 			[data.id]: data,
 		};
 
-		fs.writeFileSync(filePath, JSON.stringify(existingData));
+		fs.writeFileSync(filePath, JSON.stringify(existingData, null, 2));
 
 		res.status(200).json({
 			message: "Data written successfully",
-			data: data,
+			data: formsdata,
 		});
 	} catch (error) {
 		console.error("Error writing file:", error.message);
@@ -40,6 +40,7 @@ app.post("/create", (req, res) => {
 
 app.get("/:id", (req, res) => {
 	const id = req.params.id;
+	console.log({ id });
 	return res.json(formsdata[id] || { message: "No Data Found" });
 });
 
